@@ -1,0 +1,2 @@
+#define RandomAccessIterator typename
+#define Integer typename
