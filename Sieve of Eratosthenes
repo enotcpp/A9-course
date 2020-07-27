@@ -43,7 +43,7 @@ void mark_sieve(I first, I last, N factor)
 
     *first = false;
 
-    while(last - first < factor)
+    while(last - first > factor)
     {
         first += factor;
         *first = false;
@@ -135,5 +135,21 @@ void sift(I first, N n)
         index_square += factor;
         factor       += N(2);
         index_square += factor;
+    }
+}
+
+//+------------------------------------------------------------------+
+//| sift_test                                                        |
+//+------------------------------------------------------------------+
+
+void sift_test(size_t size)
+{
+    vector<bool> numbers(size);
+
+    sift(numbers.begin(), size);
+
+    for(size_t i = 0; i < size; ++i)
+    {
+        cout << "[" << 2 * i + 3 << "] : " << numbers[i] << endl;
     }
 }
