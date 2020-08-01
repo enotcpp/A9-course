@@ -95,19 +95,20 @@ line_segment gcm2(line_segment a, line_segment b)
 
 line_segment fast_segment_remainder(line_segment a, line_segment b)
 {
-    if(a <= b)
+    // precondition: b != 0
+    if(a < b)
     {
         return a;
     }
 
-    if(a - b <= b)
+    if(a - b < b)
     {
         return a - b;
     }
 
     a = fast_segment_remainder(a, b + b);
 
-    if(a <= b)
+    if(a < b)
     {
         return a;
     }
@@ -127,6 +128,53 @@ line_segment fast_segment_gcm(line_segment a, line_segment b)
 
         std::swap(a, b);
     }
+
+    return a;
+}
+
+//+------------------------------------------------------------------+
+//| largest_doubling                                                 |
+//| Для перехода к итеративной версии - функция кол-ва удвоений,     |
+//| возваращем первый результат удвоения b, больший a - b.           |
+//+------------------------------------------------------------------+
+
+line_segment largest_doubling(line_segment a, line_segment b)
+{
+    //precondition: b != 0
+    while(a - b >= b)
+    {
+        b = b + b;
+    }
+
+    return b;
+}
+
+//+------------------------------------------------------------------+
+//| remainder                                                        |
+//+------------------------------------------------------------------+
+
+line_segment remainder(line_segment a, line_segment b)
+{
+    //precondition: b != 0
+    if(a < b)
+    {
+        return a;
+    }
+
+    line_segment c = largest_doubling(a, b);
+
+    a = a - c;
+
+    while(c != b)
+    {
+        c = half(c);
+        
+        if(c <= a)
+        {
+            a = a - c;
+        }
+    }
+
     return a;
 }
 
