@@ -127,5 +127,6 @@ line_segment fast_segment_gcm(line_segment a, line_segment b)
 
         std::swap(a, b);
     }
+    return a;
 }
 
