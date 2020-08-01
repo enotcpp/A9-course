@@ -89,3 +89,43 @@ line_segment gcm2(line_segment a, line_segment b)
 //| segment_remainder(a, b) = {r если r<=b | r-b если r >b }         |
 //+------------------------------------------------------------------+
 
+//+------------------------------------------------------------------+
+//| fast_segment_remainder                                           |
+//+------------------------------------------------------------------+
+
+line_segment fast_segment_remainder(line_segment a, line_segment b)
+{
+    if(a <= b)
+    {
+        return a;
+    }
+
+    if(a - b <= b)
+    {
+        return a - b;
+    }
+
+    a = fast_segment_remainder(a, b + b);
+
+    if(a <= b)
+    {
+        return a;
+    }
+
+    return a - b;
+}
+
+//+------------------------------------------------------------------+
+//| fast_segment_gcm                                                 |
+//+------------------------------------------------------------------+
+
+line_segment fast_segment_gcm(line_segment a, line_segment b)
+{
+    while(a != b)
+    {
+        a = fast_segment_remainder(a, b);
+
+        std::swap(a, b);
+    }
+}
+
